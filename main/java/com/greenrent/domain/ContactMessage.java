@@ -42,5 +42,4 @@ public class ContactMessage implements Serializable { // Best practice: Bu entit
     @Email
     @Column(length = 50, nullable = false)
     private String email;
-
 }
