@@ -53,4 +53,11 @@ public class GreenrentExceptionHandler extends ResponseEntityExceptionHandler {
         ApiResponseError error = new ApiResponseError(HttpStatus.BAD_REQUEST, ex.getMessage(), request.getDescription(false));
         return buildresponseEntity(error);
     }
+    
+    @Override
+    protected ResponseEntity<Object> handleConversionNotSupported(ConversionNotSupportedException ex, 
+                                                                  HttpHeaders headers, HttpStatus status, WebRequest request) {
+        ApiResponseError error = new ApiResponseError(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), request.getDescription(false));
+        return buildresponseEntity(error);
+    }
 }
