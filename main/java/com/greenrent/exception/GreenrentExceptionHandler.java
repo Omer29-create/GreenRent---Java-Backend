@@ -20,4 +20,10 @@ public class GreenrentExceptionHandler extends ResponseEntityExceptionHandler {
         ApiResponseError error = new ApiResponseError(HttpStatus.NOT_FOUND, ex.getMessage(), request.getDescription(false));
         return buildresponseEntity(error);
     }
+
+    @ExceptionHandler(ConflictException.class)
+    protected ResponseEntity<Object> handleConflictException(ConflictException ex, WebRequest request) {
+        ApiResponseError error = new ApiResponseError(HttpStatus.CONFLICT, ex.getMessage(), request.getDescription(false));
+        return buildresponseEntity(error);
+    }
 }
