@@ -46,4 +46,11 @@ public class GreenrentExceptionHandler extends ResponseEntityExceptionHandler {
         ApiResponseError error = new ApiResponseError(HttpStatus.BAD_REQUEST, errors.get(0).toString(), request.getDescription(false));
         return buildresponseEntity(error);
     }
+    
+    @Override
+    protected ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers,
+                                                        HttpStatus status, WebRequest request) {
+        ApiResponseError error = new ApiResponseError(HttpStatus.BAD_REQUEST, ex.getMessage(), request.getDescription(false));
+        return buildresponseEntity(error);
+    }
 }
