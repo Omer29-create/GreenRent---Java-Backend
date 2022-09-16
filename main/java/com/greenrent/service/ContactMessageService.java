@@ -32,7 +32,6 @@ public class ContactMessageService {
     public List<ContactMessage> getAll() {
         return repository.findAll();
     }
-
     /**
      * Bulunamazsa Exception firlatacak
      * @param id
@@ -75,6 +74,4 @@ public class ContactMessageService {
     public Page<ContactMessage> getAllWithPage (Pageable pageable) {
         return repository.findAll(pageable);
     }
-
-
 }
