@@ -1,8 +1,13 @@
 package com.greenrent.security.jwt;
 
+import com.greenrent.domain.User;
 import com.greenrent.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -11,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
 
@@ -33,13 +39,23 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             if(jwt != null && jwtUtils.validateJwtToken(jwt)) {
                 Long id = jwtUtils.getIdFromJwtToken(jwt);
 
-                userRepository.fi
+                Optional<User> user = userRepository.findById(id);
+                request.setAttribute("id", user.get().getId());
 
-                request.setAttribute("id", id);
+                UserDetails userDetails = userDetailsService.loadUserByUsername(user.get().getEmail());
+
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(
+                                userDetails, null, userDetails.getAuthorities());
+
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+
+
             }
         } catch (Exception e) {
-
+            logger.error("User Authentication error");
         }
+        filterChain.doFilter(request, response);
     }
 
     private String parseJwt(HttpServletRequest request) {
@@ -48,9 +64,13 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         if(StringUtils.hasText(headerAuth) && headerAuth.startsWith("Bearer ")) {
             return headerAuth.substring(7);
         }
+        return null;
     }
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        return super.shouldNotFilter(request);
+        AntPathMatcher antPathMatcher = new AntPathMatcher();
+
+        return antPathMatcher.match("/register", request.getServletPath()) ||
+                antPathMatcher.match("/login", request.getServletPath());
     }
 }
