@@ -47,5 +47,4 @@ public class RegisterRequest {
     @NotNull(message = "Please provide your zip code")
     private String zipCode;
 
-
 }
