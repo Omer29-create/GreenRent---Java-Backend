@@ -17,8 +17,6 @@ package com.greenrent.controller;
 
 
 
-
-
 import com.greenrent.domain.ContactMessage;
 import com.greenrent.service.ContactMessageService;
 import lombok.AllArgsConstructor;
