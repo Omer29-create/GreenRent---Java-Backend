@@ -10,9 +10,6 @@ server:
 
 
 
-
-
-
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/carrental_db
