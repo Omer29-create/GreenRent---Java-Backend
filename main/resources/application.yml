@@ -5,6 +5,20 @@ server:
     include-binding-errors: always
     include-stacktrace: never
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/carrental_db
