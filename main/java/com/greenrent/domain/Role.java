@@ -1,7 +1,6 @@
 package com.greenrent.domain;
 
 
-
 import com.greenrent.domain.enums.RoleType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
