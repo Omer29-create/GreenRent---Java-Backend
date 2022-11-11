@@ -6,8 +6,6 @@ package com.greenrent.security.jwt;
 
 
 
-
-
 import com.greenrent.domain.User;
 import com.greenrent.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
