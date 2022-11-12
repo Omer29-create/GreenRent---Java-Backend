@@ -6,8 +6,6 @@ package com.greenrent.security;
 
 
 
-
-
 import com.greenrent.security.jwt.AuthTokenFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
